@@ -1,21 +1,22 @@
 from reqecho import echo
 from flask import *
+import time
 
 @echo.route('/', methods=['POST','GET'])
 def list_header():
-    if request.method == "GET":
-        return """
+    timeout = time.time() + 20
+    test_post = """
         <form action="/" method="POST">
-        <input name="num"></input>
+        Post Test: <input name="num"></input>
         </form>"""
+    while True:
+        if time.time() > timeout:
+            break
+    print(request.headers)
+    if request.method == "GET":
+        return test_post
     else:
         try:
-            result = ""
-            for key in request.headers.keys():
-                result += "{}: {}</br>".format(key, request.headers[key])
-            return result
+            return 'OK',200
         except:
-            return """
-                    <form action="/" method="POST">
-                    <input name="num"></input>
-                    </form>"""
+            return test_post
