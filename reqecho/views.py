@@ -1,6 +1,7 @@
 from reqecho import echo
 from flask import *
 import time
+import sys
 
 @echo.route('/matcher/v2/matchImage', methods=['POST','GET'])
 @echo.route('/', methods=['POST','GET'])
@@ -14,6 +15,7 @@ def list_header():
         if time.time() < timeout:
             break
         else:
+            sys.exit(1)
             return 'TIMEOUT',500
     print(request.headers)
     if request.method == "GET":
