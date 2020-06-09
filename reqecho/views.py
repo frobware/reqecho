@@ -3,6 +3,7 @@ from flask import *
 import time
 
 @echo.route('/matcher/v2/matchImage', methods=['POST','GET'])
+@echo.route('/', methods=['POST','GET'])
 def list_header():
     timeout = time.time() + 20
     test_post = """
